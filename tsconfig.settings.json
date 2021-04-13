@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "commonjs",
+        "allowJs": true,
+        "jsx": "react",
+        "esModuleInterop": true,
+        "types": []
+    },
+    "include": [
+        "**/*.ts",
+        "**/*.tsx"
+    ],
+    "exclude": [
+        "**/node_modules",
+        "**/Distribution"
+    ]
+}

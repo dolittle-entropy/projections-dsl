@@ -1,0 +1,13 @@
+{
+    "name": "@dolittle/projections-dsl.languages",
+    "version": "0.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+      "generate": "./generate.sh"
+    },
+    "dependencies": {
+    },
+    "devDependencies": {
+    }
+}
