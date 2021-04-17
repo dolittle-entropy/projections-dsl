@@ -13,6 +13,7 @@ export const registerLanguage = <TLexer extends Lexer, TParser extends Parser, T
 
     languages.onLanguage(label, () => {
         languages.setTokensProvider(label, processor.tokensProvider);
+        languages.registerCodeActionProvider(label, processor.codeActionProvider);
 
         listenToModelAddRemove((model) => {
             processor.syntaxValidator.addModel(model);

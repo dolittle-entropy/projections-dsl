@@ -1,5 +1,4 @@
 import { Lexer, Parser, RecognitionException, Token } from 'antlr4ts';
-import { IntervalSet } from 'antlr4ts/misc/IntervalSet';
 import { editor } from 'monaco-editor-core';
 
 import { ILanguage } from '..';
@@ -15,20 +14,20 @@ export class ParserErrorListener<TLexer extends Lexer, TParser extends Parser, T
         this._language = language;
     }
 
-    error(recognizer: TParser, line: number, column: number, _message: string, error: RecognitionException, offending: Token): editor.IMarkerData {
-        const message = `Unexpected '${offending.text}' expected ${this.getHumanExpecting(error.expectedTokens, recognizer)}`;
+    error(recognizer: TParser, _line: number, column: number, _message: string, _error: RecognitionException, offending: Token): editor.IMarkerData {
+        const message = `Unexpected "${offending.text}" expected ${this.getHumanExpecting(recognizer)}`;
         return {
             startLineNumber: offending.line,
             endLineNumber: offending.line,
-            startColumn: offending.startIndex+1,
-            endColumn: offending.stopIndex+2,
+            startColumn: column+1,
+            endColumn: column+offending.text.length+1,
             message: message,
             severity: MarkerSeverity.Error,
         };
     }
 
-    private getHumanExpecting(tokens: IntervalSet, parser: TParser): string {
-        const mapped = tokens.toArray().map(_ => this._language.getHumanTokenName(_) ?? parser.vocabulary.getSymbolicName(_));
+    private getHumanExpecting(parser: TParser): string {
+        const mapped = parser.getExpectedTokens().toArray().map(_ => this._language.getHumanTokenName(_) ?? parser.vocabulary.getSymbolicName(_));
         if (mapped.length === 1) {
             return mapped[0];
         } else if (mapped.length === 2) {

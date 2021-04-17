@@ -1,7 +1,8 @@
 import { Lexer, Parser } from 'antlr4ts';
-import { editor, worker } from 'monaco-editor-core';
+import { editor, languages, worker } from 'monaco-editor-core';
 
 import { ILanguage } from '..';
+import { Range } from '../Monaco';
 import { SyntaxValidator } from '../Validation';
 
 
@@ -21,6 +22,11 @@ export class Worker<TLexer extends Lexer, TParser extends Parser, TRoot> {
     async validate(modelUri: string): Promise<editor.IMarkerData[]> {
         const source = this.getSource(modelUri);
         return this._syntaxValidator.validate(source);
+    }
+
+    async actions(modelUri: string, range: Range, context: languages.CodeActionContext): Promise<readonly languages.CodeAction[]> {
+        //console.log('WORKER ACTIONS', modelUri, range, context);
+        return [];
     }
 
     private getSource(modelUri: string): string {
