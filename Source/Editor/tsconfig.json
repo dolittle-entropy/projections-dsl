@@ -3,6 +3,13 @@
     "compilerOptions": {
         "rootDir": ".",
         "outDir": "Distribution",
-        "composite": true
-    }
+        "composite": true,
+    },
+    "include": [
+        "**/*.ts",
+        "**/*.tsx",
+    ],
+    "references": [
+        { "path": "../Languages" },
+    ]
 }

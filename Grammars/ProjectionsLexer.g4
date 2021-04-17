@@ -34,6 +34,7 @@ IDENTIFIER_LIT: '\'' [_\p{L}\p{N}]+ '\'';
 
 // Hidden
 WS: [ \t]+ -> channel(HIDDEN);
+NL: [\r\n]+ -> channel(HIDDEN);
 
 // Fragments
 fragment HEX_DIGIT: [0-9a-fA-F];

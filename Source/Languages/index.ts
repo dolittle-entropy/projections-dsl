@@ -1,0 +1,2 @@
+
+export { ILanguage } from './ILanguage';

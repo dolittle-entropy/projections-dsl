@@ -1,0 +1,40 @@
+import { Lexer, Parser, RecognitionException, Token } from 'antlr4ts';
+import { IntervalSet } from 'antlr4ts/misc/IntervalSet';
+import { editor } from 'monaco-editor-core';
+
+import { ILanguage } from '..';
+
+import { ErrorListener } from './ErrorListener';
+import { MarkerSeverity } from './MarkerSeverity';
+
+export class ParserErrorListener<TLexer extends Lexer, TParser extends Parser, TRoot> extends ErrorListener<Token, TParser> {
+    private readonly _language: ILanguage<TLexer, TParser, TRoot>;
+    
+    constructor(language: ILanguage<TLexer, TParser, TRoot>) {
+        super();
+        this._language = language;
+    }
+
+    error(recognizer: TParser, line: number, column: number, _message: string, error: RecognitionException, offending: Token): editor.IMarkerData {
+        const message = `Unexpected '${offending.text}' expected ${this.getHumanExpecting(error.expectedTokens, recognizer)}`;
+        return {
+            startLineNumber: offending.line,
+            endLineNumber: offending.line,
+            startColumn: offending.startIndex+1,
+            endColumn: offending.stopIndex+2,
+            message: message,
+            severity: MarkerSeverity.Error,
+        };
+    }
+
+    private getHumanExpecting(tokens: IntervalSet, parser: TParser): string {
+        const mapped = tokens.toArray().map(_ => this._language.getHumanTokenName(_) ?? parser.vocabulary.getSymbolicName(_));
+        if (mapped.length === 1) {
+            return mapped[0];
+        } else if (mapped.length === 2) {
+            return mapped[0] + ' or ' + mapped[1];
+        } else {
+            return mapped.slice(0, -1).join(', ') + ' or ' + mapped[mapped.length-1];
+        }
+    }
+}

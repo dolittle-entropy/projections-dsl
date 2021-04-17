@@ -7,12 +7,18 @@ const Root = () => {
     return (
         <div style={{ height: '90vh' }}>
             <MonacoEditor
-                language="ts"
+                language="projections"
                 options={{
                     minimap: {
                         enabled: false,
                     },
                 }}
+                value="projection Hello id=ABC {
+    'world' from EventB.Number + EventB.OtherNumber - EventB.LastNumber;
+    'something' from {
+        join(EventA.String, EventB.String, EventB.OtherString)
+    }
+}"
             />
         </div>
     );

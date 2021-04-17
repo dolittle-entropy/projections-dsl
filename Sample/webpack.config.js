@@ -2,6 +2,7 @@ const Webpack = require('webpack');
 const Path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
+const TSConfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -13,13 +14,26 @@ module.exports = {
         path: Path.resolve(__dirname, 'Distribution'),
     },
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.jsx', '.css'],
+        extensions: ['.ts', '.tsx', '.js', '.jsx'],
+        plugins: [
+            new TSConfigPathsPlugin({
+                configFile: 'tsconfig.json',
+            })
+        ],
+        fallback: {
+            'assert': require.resolve('assert/'),
+            'util': require.resolve('util/'),
+        },
     },
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
                 loader: 'ts-loader',
+                options: {
+                    transpileOnly: true,
+                    configFile: 'tsconfig.json',
+                },
             },
             {
                 test: /\.css$/,
@@ -33,6 +47,17 @@ module.exports = {
     },
     plugins: [
         new MonacoWebpackPlugin({
+            customLanguages: [
+                {
+                    label: 'projections',
+                    entry: '@dolittle/projections-dsl.editor/Contributions/Projections/projections.entry.ts',
+                    worker: {
+                        id: 'projections',
+                        entry: '@dolittle/projections-dsl.editor/Contributions/Projections/projections.worker.ts',
+                    }
+                }
+            ],
+            languages: [],
         }),
         new Webpack.ProvidePlugin({
             'process': 'process/browser',

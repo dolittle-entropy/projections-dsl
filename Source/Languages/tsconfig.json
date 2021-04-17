@@ -4,5 +4,9 @@
         "rootDir": ".",
         "outDir": "Distribution",
         "composite": true
-    }
+    },
+    "include": [
+        "**/*.ts",
+        "**/*.tsx",
+    ],
 }

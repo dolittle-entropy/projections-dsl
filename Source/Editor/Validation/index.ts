@@ -1,0 +1,2 @@
+
+export { SyntaxValidator } from './SyntaxValidator';
