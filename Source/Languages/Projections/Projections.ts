@@ -1,9 +1,25 @@
 import { CharStream, TokenStream, Token } from 'antlr4ts';
+import { languages } from 'monaco-editor-core';
 import { ILanguage } from '../ILanguage';
 import { ProjectionsLexer } from './Generated/ProjectionsLexer';
 import { ProjectionsContext, ProjectionsParser } from './Generated/ProjectionsParser';
 
 export class Projections implements ILanguage<ProjectionsLexer, ProjectionsParser, ProjectionsContext> {
+    readonly configuration: languages.LanguageConfiguration = {
+        brackets: [
+            ['{', '}'],
+            ['[', ']'],
+            ['(', ')'],
+        ],
+        autoClosingPairs: [
+            { open: '\'', close: '\''},
+            { open: '"', close: '"'},
+            { open: '{', close: '}'},
+            { open: '[', close: ']'},
+            { open: '(', close: ')'},
+        ],
+    }
+
     getLexerFor(source: CharStream): ProjectionsLexer {
         return new ProjectionsLexer(source);
     }
