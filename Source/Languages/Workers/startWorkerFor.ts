@@ -6,8 +6,8 @@ import { Worker } from '@dolittle/projections-dsl.languages/Workers';
 
 export const startWorkerFor = <TLexer extends Lexer, TParser extends Parser, TRoot>(language: ILanguage<TLexer, TParser, TRoot>): void => {
     self.onmessage = () => {
-        editorworker.initialize((context) => {
-            return new Worker(language, context);
+        editorworker.initialize((context, createData) => {
+            return new Worker(createData.languageId, language, context);
         });
     };
 };

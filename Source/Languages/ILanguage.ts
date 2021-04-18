@@ -6,4 +6,5 @@ export interface ILanguage<TLexer extends Lexer, TParser extends Parser, TRoot> 
     getAstRoot(parser: TParser): TRoot;
     getTokenScope(token: Token): string;
     getHumanTokenName(token: number): string | undefined;
+    getQuickFixForExpectedToken(token: number): { title: string, text: string } | undefined;
 }

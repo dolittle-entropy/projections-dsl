@@ -58,4 +58,21 @@ export class Projections implements ILanguage<ProjectionsLexer, ProjectionsParse
                 return 'a GUID';
         }
     }
+
+    getQuickFixForExpectedToken(token: number): { title: string; text: string; } | undefined {
+        switch (token) {
+            case ProjectionsLexer.GUID_LIT:
+                return {
+                    title: 'Insert a new GUID',
+                    text: `'${this.generateGUID()}'`
+                };
+        }
+        return
+    }
+
+    private generateGUID(): string {
+        const random = crypto.getRandomValues(new Uint8Array(16));
+        const hex = Array.from(random).map(_ => ('0'+_.toString(16)).slice(-2)).join('');
+        return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-4${hex.slice(13, 16)}-8${hex.slice(17, 20)}-${hex.slice(20, 32)}`
+    }
 }

@@ -23,6 +23,7 @@ export class ParserErrorListener<TLexer extends Lexer, TParser extends Parser, T
             endColumn: column+offending.text.length+1,
             message: message,
             severity: MarkerSeverity.Error,
+            code: 'expected:'+recognizer.getExpectedTokens().toArray().join(','),
         };
     }
 

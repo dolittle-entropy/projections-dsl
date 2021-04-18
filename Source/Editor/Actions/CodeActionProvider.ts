@@ -1,5 +1,5 @@
 import { Lexer, Parser } from 'antlr4ts';
-import { CancellationToken, editor, languages, Range } from 'monaco-editor';
+import { CancellationToken, editor, languages, Range, Uri } from 'monaco-editor';
 
 import { ILanguage } from '@dolittle/projections-dsl.languages';
 import { WorkerFactory } from '../Workers';
@@ -16,6 +16,15 @@ export class CodeActionProvider<TLexer extends Lexer, TParser extends Parser, TR
     async provideCodeActions(model: editor.ITextModel, range: Range, context: languages.CodeActionContext, token: CancellationToken): Promise<languages.CodeActionList> {
         const worker = await this._workerFactory(model.uri);
         const actions = await worker.actions(model.uri.toString(true), range, context);
+
+        for (const action of actions) {
+            for (const edit of action.edit?.edits) {
+                if ('resource' in edit) {
+                    edit.resource = Uri.from(edit.resource);
+                }
+            }
+        }
+
         return { actions, dispose: () => {} };
     }
 }

@@ -13,7 +13,7 @@ const Root = () => {
                         enabled: false,
                     },
                 }}
-                value="projection Hello id=''
+                value="projection Hello id=ABC {
     'world' from EventB.Number + EventB.OtherNumber - EventB.LastNumber;
     'something' from {
         join(EventA.String, EventB.String, EventB.OtherString)
