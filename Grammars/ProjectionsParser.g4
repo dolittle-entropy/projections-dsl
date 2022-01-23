@@ -4,16 +4,52 @@ options {
     tokenVocab=ProjectionsLexer;
 }
 
-projections
-    : projection*
+body
+    : (event | projection)*
     ;
 
-projection
-    : PROJECTION TYPE identifier L_CURLY projectionBody R_CURLY
-    ;
-
+// COMMON
 identifier
     : ID ASSIGN GUID_LIT
+    ;
+
+// Events
+event
+    : EVENT TYPE identifier object
+    ;
+
+type
+    : (object | enumeration | BOOLEAN | STRING | TIMESTAMP | FLOAT32 | FLOAT64 | INT8 | INT16 | INT32 | UINT8 | UINT16 | UINT32) (arraySuffix)?
+    ;
+
+arraySuffix
+    : L_BRACKET R_BRACKET
+    ;
+
+enumeration
+    : L_BRACKET enumarationValues R_BRACKET
+    ;
+
+enumarationValues
+    : STRING_LIT ( COMMA STRING_LIT )*
+    ;
+
+object
+    : L_CURLY objectBody R_CURLY
+    ;
+
+objectBody
+    : objectProperty*
+    ;
+
+objectProperty
+    : IDENTIFIER_LIT COLON type
+    ;
+
+
+// Projections
+projection
+    : PROJECTION TYPE identifier L_CURLY projectionBody R_CURLY
     ;
 
 projectionBody
