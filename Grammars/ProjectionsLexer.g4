@@ -23,8 +23,8 @@ UINT32: 'uint32';
 JOIN: 'join';
 
 // Identifiers
-TYPE: [\p{Lu}] [_\p{L}\p{N}]*;
-PROPERTY: '.' [_\p{L}\p{N}]+;
+TYPE: [A-Z] [_A-Za-z0-9]*; //TYPE: [\p{Lu}] [_\p{L}\p{N}]*;
+PROPERTY: '.' [_A-Za-z0-9]+; //PROPERTY: '.' [_\p{L}\p{N}]+;
 
 // Punctuation
 L_PAREN: '(';
@@ -45,7 +45,7 @@ MINUS: '-';
 
 // Literals
 GUID_LIT: '\'' HEX_SHORT HEX_SHORT '-' HEX_SHORT '-' HEX_SHORT '-' HEX_SHORT '-' HEX_SHORT HEX_SHORT HEX_SHORT '\'';
-IDENTIFIER_LIT: '\'' [_\p{L}\p{N}]+ '\'';
+IDENTIFIER_LIT: '\'' [_A-Za-z0-9]+ '\''; //IDENTIFIER_LIT: '\'' [_\p{L}\p{N}]+ '\'';
 STRING_LIT: '"' ('\\"' | ~('\n' | '\r'))*? '"';
 
 // Hidden

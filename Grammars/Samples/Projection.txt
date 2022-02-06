@@ -1,3 +1,11 @@
+event EventA id='ba9e25bb-4930-4cb8-b058-7033a4509384' {
+    'hello': timestamp
+    'world': {
+        'answer': int8[]
+        'enum': [ "hello", "world", "this", "is" ]
+    }[]
+}
+
 projection Hello id='46a2003c-9d55-4012-912c-c0cc91aa0d4a' {
     'world' from EventB.Number + EventB.OtherNumber - EventB.LastNumber;
     'something' from {

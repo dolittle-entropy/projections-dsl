@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    
+    <AssemblyName>Dolittle.ProjectionsDSL.Parser</AssemblyName>
+    <RootNamespace>Dolittle.ProjectionsDSL.Parser</RootNamespace>
+  </PropertyGroup>
+  
+  <ItemGroup>
+    <Antlr4 Include="../../Grammars/ProjectionsLexer.g4">
+      <Generator>MSBuild:Compile</Generator>
+      <CustomToolNamespace>Dolittle.ProjectionsDSL.Parser</CustomToolNamespace>
+    </Antlr4>
+    <Antlr4 Include="../../Grammars/ProjectionsParser.g4">
+      <Generator>MSBuild:Compile</Generator>
+      <CustomToolNamespace>Dolittle.ProjectionsDSL.Parser</CustomToolNamespace>
+    </Antlr4>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Antlr4" Version="4.6.6" />
+  </ItemGroup>
+
+</Project>
