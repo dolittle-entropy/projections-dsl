@@ -1,18 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    
-    <AssemblyName>Dolittle.ProjectionsDSL.Tool</AssemblyName>
-    <RootNamespace>Dolittle.ProjectionsDSL.Tool</RootNamespace>
+
+    <AssemblyName>Dolittle.ProjectionsDSL.Compiler</AssemblyName>
+    <RootNamespace>Dolittle.ProjectionsDSL.Compiler</RootNamespace>
   </PropertyGroup>
   
   <ItemGroup>
+    <ProjectReference Include="../Model/Model.csproj" />
     <ProjectReference Include="../Parser/Parser.csproj" />
-    <ProjectReference Include="../Compiler/Compiler.csproj" />
   </ItemGroup>
 
 </Project>

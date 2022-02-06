@@ -1,4 +1,5 @@
 ﻿using Antlr4.Runtime;
+using Dolittle.ProjectionsDSL.Compiler;
 using Dolittle.ProjectionsDSL.Parser;
 
 var input = @"
@@ -16,4 +17,7 @@ var parser = new ProjectionsParser(new CommonTokenStream(lexer));
 
 var body = parser.body();
 
+var compiled = ModelCompiler.CompileFrom(body);
+
 Console.WriteLine(body.ToStringTree(parser));
+Console.WriteLine(compiled);
